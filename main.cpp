@@ -365,10 +365,30 @@ DLLRESULT CALLBACK bagSave(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam
     return (0);
 }
 
+void CurrentDir()
+{
+    char ss[256] = "";
+    GetModuleFileNameA(NULL, ss, 255);
+    char ss2[256];
+    strcpy_s(ss2, 256, ss);
+    char* s1 = ss2;
+    char* s2 = NULL;
+    while(s1 && *s1)
+    {
+        if(*s1 == '\\')s2 = s1;
+        s1++;
+    }
+    if(s2)
+    {
+        *s2 = 0;
+        SetCurrentDirectory(ss2);
+    }
+}
 
 
 int APIENTRY wWinMain(_In_ HINSTANCE hInst, _In_opt_ HINSTANCE hPrevInstance, _In_ LPWSTR lpCmdLine, _In_ int nCmdShow)
 {
+    CurrentDir();
     LoadConnect();
     DialogBox(hInstance, MAKEINTRESOURCE(IDD_DIALOG1), NULL, bagSave);
 
