@@ -18,15 +18,11 @@
 
 std::string m_dbhost = "localhost";
 std::string m_dbport = "5432";
-std::string m_dbname = "kpvl";
-std::string m_dbuser = "user";
-std::string m_dbpass = "TutonHamon8*";
+std::string m_dbname = "";
+std::string m_dbuser = "";
+std::string m_dbpass = "";
 
 PGConnection conn;
-
-//std::string m_dbname = "Test";
-//std::string m_dbuser = "user";
-//std::string m_dbpass = "TutonHamon8*";
 
 
 PGConnection::~PGConnection()
