@@ -34,11 +34,11 @@
 #pragma comment(lib, "Comctl32.lib")
 #pragma comment(linker,"/manifestdependency:\"type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' processorArchitecture='*' publicKeyToken='6595b64144ccf1df' language='*'\"")
 
-#ifdef _WIN64
-#define DLLRESULT LRESULT
-#else
-#define DLLRESULT INT_PTR
-#endif
+//#ifdef _WIN64
+//#define DLLRESULT LRESULT
+//#else
+//#define DLLRESULT INT_PTR
+//#endif
 
 
 #define FUNCTION_LINE_NAME std::string (std::string(" File: ") + std::string( __FILE__ ) + std::string("; Function: ") + std::string( __FUNCTION__ ) + std::string ("; Line ") + std::to_string(__LINE__) + std::string ("; "))
@@ -205,9 +205,9 @@ std::string pKey = "õàáðàbarracudabarracudaõàáðà";
 char sCommand[0xFFFF];
 char sCommand2[0xFFFF];
 
-void encode(char* pText, int len)
+void encode(char* pText, size_t len)
 {
-    for(int i = 0; i < len; i++)
+    for(size_t i = 0; i < len; i++)
         pText[i] = (byte)(pText[i] ^ pKey[i % pKey.length()]);
 }
 
@@ -321,7 +321,7 @@ bool InitGlobalWindow(HINSTANCE hInst)
 }
 
 
-DLLRESULT InitDialog(HWND hWnd)
+INT_PTR InitDialog(HWND hWnd)
 {
     CenterWindow(hWnd, NULL);
     SetWindowText(GetDlgItem(hWnd, IDC_EDIT1), m_dbhost.c_str());
@@ -332,7 +332,7 @@ DLLRESULT InitDialog(HWND hWnd)
     return 0;
 }
 
-DLLRESULT CommandDialog(HWND hWnd, WPARAM wParam)
+INT_PTR CommandDialog(HWND hWnd, WPARAM wParam)
 {
     if(wParam == IDOK)
     {
@@ -358,7 +358,7 @@ DLLRESULT CommandDialog(HWND hWnd, WPARAM wParam)
     return 0;
 }
 
-DLLRESULT CALLBACK bagSave(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+INT_PTR CALLBACK bagSave(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
 {
     if(message == WM_INITDIALOG)return InitDialog(hWnd);
     if(message == WM_COMMAND) return CommandDialog(hWnd, wParam);
